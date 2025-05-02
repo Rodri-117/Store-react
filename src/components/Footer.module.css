@@ -1,0 +1,101 @@
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.socialIcons {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.socialIcon {
+    height: 30px;
+    width: auto;
+    margin: 0 10px;
+    transition: transform 0.3s ease;
+}
+
+.socialIcons a:hover .socialIcon {
+    transform: scale(1.1);
+}
+
+.subscribeTitle {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #ff5722;
+}
+
+.subscribeForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-direction: column;
+}
+
+.emailInput {
+    padding: 10px;
+    width: 100%; 
+    max-width: 300px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.submitButton {
+    padding: 10px 20px;
+    background-color: #ff5722;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 300px;
+}
+
+.submitButton:hover {
+    background-color: #e64a19;
+}
+
+.footerText {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 20px;
+}
+
+.footerText .link {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footerText .link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .subscribeTitle {
+        font-size: 1rem;
+    }
+
+    .subscribeForm {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    .emailInput,
+    .submitButton {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

@@ -1,0 +1,45 @@
+    .body {
+        background-color: #f4f4f4;
+        min-height: 100vh;
+    }
+    
+    .main {
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 900px;
+    }
+    
+    .card {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        text-align: center;
+        transition: box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .title {
+        font-size: 2rem;
+        margin-bottom: 25px;
+        color: #333;
+    }
+    
+    .iframeWrapper {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+    
+    .iframe {
+        border: none;
+    }

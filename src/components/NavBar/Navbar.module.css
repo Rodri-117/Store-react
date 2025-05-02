@@ -1,0 +1,94 @@
+/* Estilo general para el navbar */
+.navbar {
+    background-color: #333;
+    padding: 10px 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Logo */
+.navbar-brand img {
+    height: 40px;
+    width: auto;
+}
+
+/* Links del navbar */
+.nav-link {
+    color: #fff !important;
+    font-size: 1rem;
+    margin-right: 20px;
+    transition: color 0.3s ease;
+}
+
+/* Estilo para el link activo */
+.nav-link.active {
+    color: #ff5722 !important;
+}
+
+/* Hover de los links */
+.nav-link:hover {
+    color: #ff5722 !important;
+}
+
+/* Contenedor del carrito */
+.navbar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Formulario de búsqueda */
+.form-control {
+    width: 200px;
+}
+
+/* Estilo del icono de carrito */
+.nav-item img {
+    height: 30px;
+    width: auto;
+    position: relative;
+}
+
+/* Badge del carrito */
+.badge {
+    background-color: #ff5722;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 50%;
+    top: -10px;
+    right: -10px;
+}
+
+/* Estilo del botón de búsqueda */
+.btn-outline-success {
+    border-color: #ff5722;
+    color: #ff5722;
+}
+
+/* Estilo cuando el botón está en hover */
+.btn-outline-success:hover {
+    background-color: #ff5722;
+    color: #fff;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .nav-link {
+        margin: 10px 0;
+    }
+
+    .form-control {
+        width: 100%;
+        margin-top: 10px;
+    }
+}

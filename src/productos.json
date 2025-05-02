@@ -1,0 +1,107 @@
+[
+    {
+        "id": 1,
+        "nombre": "Jean negro T:40",
+        "precio": 22000,
+        "imagen": "/images/ejemplo1.jpeg",
+        "categoria": "hombre"
+    },
+    {
+        "id": 2,
+        "nombre": "Jean azul T:38",
+        "precio": 17000,
+        "imagen": "/images/ejemplo3.jpeg",
+        "categoria": "hombre"
+    },
+    {
+        "id": 3,
+        "nombre": "Jean gris T:36",
+        "precio": 20000,
+        "imagen": "/images/ejemplo4.jpeg",
+        "categoria": "hombre"
+    },
+    {
+        "id": 4,
+        "nombre": "Remera de algodón lisa",
+        "precio": 8000,
+        "imagen": "/images/ejemplo5.jpeg",
+        "categoria": "mujer"
+    },
+    {
+        "id": 5,
+        "nombre": "Jean gris :40",
+        "precio": 22000,
+        "imagen": "/images/ejemplo8.jpeg",
+        "categoria": "hombre"
+    },
+    {
+        "id": 6,
+        "nombre": "Remera LA T:S",
+        "precio": 9000,
+        "imagen": "/images/ejemplo10.jpeg",
+        "categoria": "mujer"
+    },
+    {
+        "id": 7,
+        "nombre": "Remera LA T:L",
+        "precio": 11000,
+        "imagen": "/images/ejemplo11.jpeg",
+        "categoria": "mujer"
+    },
+    {
+        "id": 8,
+        "nombre": "Remera de algodón",
+        "precio": 11000,
+        "imagen": "/images/ejemplo12.jpeg",
+        "categoria": "mujer"
+    },
+    {
+        "id": 9,
+        "nombre": "Remera mujer T:S",
+        "precio": 9000,
+        "imagen": "/images/ejemplo13.jpeg",
+        "categoria": "mujer"
+    },
+    {
+        "id": 10,
+        "nombre": "Remera NY T:L",
+        "precio": 11000,
+        "imagen": "/images/ejemplo14.jpeg",
+        "categoria": "mujer"
+    },
+    {
+        "id": 11,
+        "nombre": "Remera NY T:M",
+        "precio": 11000,
+        "imagen": "/images/ejemplo15.jpeg",
+        "categoria": "mujer"
+    },
+    {
+        "id": 12,
+        "nombre": "Remera negra T:L",
+        "precio": 11000,
+        "imagen": "/images/ejemplo16.jpeg",
+        "categoria": "mujer"
+    },
+    {
+        "id": 13,
+        "nombre": "Remera negra T:M",
+        "precio": 11000,
+        "imagen": "/images/ejemplo17.jpeg",
+        "categoria": "mujer"
+    },
+    {
+        "id": 14,
+        "nombre": "Remera de algodón T:L",
+        "precio": 11000,
+        "imagen": "/images/ejemplo18.jpeg",
+        "categoria": "mujer"
+    },
+    {
+        "id": 15,
+        "nombre": "Remera de algodón T:S",
+        "precio": 9000,
+        "imagen": "/images/ejemplo19.jpeg",
+        "categoria": "mujer"
+    }
+]
