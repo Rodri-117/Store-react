@@ -28,6 +28,21 @@ const ItemDetailContainer = () => {
     if (error) return <p style={{ textAlign: 'center', marginTop: '3rem' }}>Error al cargar el producto.</p>;
     if (!producto) return <p style={{ textAlign: 'center', marginTop: '3rem' }}>Cargando producto...</p>;
 
+    const handleAgregarAlCarrito = (producto) => {
+        const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        carrito.push(producto);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+
+        window.dispatchEvent(new Event("carritoActualizado"));
+
+        Swal.fire({
+            icon: 'success',
+            title: '¡Producto agregado al carrito!',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    };
+
     return (
         <>
             <div className={`container my-5 ${styles.itemContainer}`}>
@@ -43,7 +58,12 @@ const ItemDetailContainer = () => {
                     <div className="col-md-6">
                         <p className="text-muted">${producto.precio.toLocaleString()}</p>
                         <p>{producto.descripcion || 'Este producto no tiene descripción disponible.'}</p>
-                        <button className="btn btn-primary me-2">Agregar al carrito</button>
+                        <button 
+                            className="btn btn-primary me-2" 
+                            onClick={() => handleAgregarAlCarrito(producto)}
+                        >
+                            Agregar al carrito
+                        </button>
                         <Link to="/category/all" className="btn btn-outline-secondary mt-2">
                             Volver a productos
                         </Link>
@@ -56,4 +76,5 @@ const ItemDetailContainer = () => {
 };
 
 export default ItemDetailContainer;
+
 

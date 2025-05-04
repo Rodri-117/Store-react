@@ -1,0 +1,42 @@
+/* Estilos generales para todo el sitio */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    height: 100%;
+}
+
+/* Contenedor principal que controla el ancho */
+.container-principal {
+    width: 100%; /* Hace que ocupe el 100% del ancho */
+    margin: 0 auto; /* Centrado horizontal */
+}
+
+/* Página de inicio con 100% de ancho */
+.homePage {
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Estilos para las demás páginas (productos, detalles, etc.) con 100% de ancho */
+.pageContent {
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Footer */
+footer {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 0;
+    background-color: #333;
+    color: white;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .homePage, .pageContent, footer {
+        width: 100%; /* Asegura que en pantallas pequeñas ocupe todo el ancho */
+    }
+}

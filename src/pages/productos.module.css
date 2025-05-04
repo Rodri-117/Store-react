@@ -16,7 +16,6 @@
     gap: 30px;
 }
 
-  /* Tarjeta */
 .card {
     background-color: #fff;
     border-radius: 10px;
@@ -65,7 +64,6 @@
     margin-bottom: 15px;
 }
 
-  /* Botón */
 .btnComprar {
     background-color: #ff5722;
     border: none;

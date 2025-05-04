@@ -19,7 +19,6 @@ const CartPage = () => {
         window.dispatchEvent(new Event("carritoActualizado"));
     };
 
-    // Calcular el total de la compra
     const calcularTotal = () => {
         return carrito.reduce((total, producto) => total + producto.precio, 0);
     };

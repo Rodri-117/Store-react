@@ -39,13 +39,7 @@ const ItemListContainer = () => {
                             <div className={styles.cardBody}>
                                 <h5 className={styles.cardTitle}>{producto.nombre}</h5>
                                 <p className={styles.cardPrice}>${producto.precio.toLocaleString()}</p>
-                                <button 
-                                    className={styles.btnComprar} 
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        handleAgregarAlCarrito(producto);
-                                    }}
-                                >
+                                <button className={styles.btnComprar} onClick={(e) => {e.preventDefault(); handleAgregarAlCarrito(producto);}}>
                                     Comprar
                                 </button>
                             </div>
