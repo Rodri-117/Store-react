@@ -1,14 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from './Navbar.module.css';
+import { FaShoppingCart } from "react-icons/fa";
 
 const Navbar = () => {
     const [cartCount, setCartCount] = useState(0);
 
-
     useEffect(() => {
-        const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-        setCartCount(cartItems.length);
+        const actualizarContador = () => {
+            const cartItems = JSON.parse(localStorage.getItem("carrito")) || [];
+            setCartCount(cartItems.length);
+        };
+
+        actualizarContador();
+
+        // Se actualiza al cambiar el carrito desde esta u otra pestaña
+        window.addEventListener("storage", (e) => {
+            if (e.key === "carrito") {
+                actualizarContador();
+            }
+        });
+
+        // Evento personalizado emitido desde la misma pestaña
+        window.addEventListener("carritoActualizado", actualizarContador);
+
+        return () => {
+            window.removeEventListener("carritoActualizado", actualizarContador);
+        };
     }, []);
 
     return (
@@ -31,21 +49,22 @@ const Navbar = () => {
                         <input className="form-control me-2" type="search" placeholder="Buscar" />
                         <button className="btn btn-outline-success" type="submit">Buscar</button>
                     </form>
-                    <li className="nav-item">
-                        <Link to="/carrito">
-                            <img src="../iconos/carrito-de-compras.png" alt="carrito" />
-                            <span className={`position-absolute top-0 start-100 translate-middle ${styles.badge}`}>
-                                {cartCount}
-                            </span>
+                    <div className={styles["cart-icon-container"]}>
+                        <Link to="/carrito" className={styles["cart-link"]}>
+                            <FaShoppingCart size={24} color="#fff" />
+                            <span className={styles.badge}>{cartCount}</span>
                         </Link>
-                    </li>
+                    </div>
                 </div>
             </div>
         </nav>
     );
-}
+};
 
 export default Navbar;
+
+
+
 
 
 

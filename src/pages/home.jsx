@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import img1 from '/images/ejemplo2.jpeg';
 import img2 from '/images/ejemplo9.jpeg';
 import img3 from '/images/ejemplo22.jpeg';
@@ -15,6 +14,21 @@ import styles from './Home.module.css';
 const HomePage = () => {
     const carruselImgs = [img1, img2, img3];
     const galeriaImgs = [img21, img2gal, img3gal, img4, img5, img6];
+
+    const handleAgregarAlCarrito = (producto) => {
+        const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        carrito.push(producto);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+
+        window.dispatchEvent(new Event("carritoActualizado"));
+        
+        Swal.fire({
+            icon: 'success',
+            title: '¡Producto agregado al carrito!',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    };
 
     return (
         <>
@@ -42,16 +56,32 @@ const HomePage = () => {
                 <h1 className={styles.titulo}>PRODUCTOS DESTACADOS</h1>
 
                 <section className={styles.grid}>
-                    {galeriaImgs.map((img, i) => (
-                        <div key={i} className={styles.card}>
-                            <img src={img} className={styles.cardImg} alt={`Imagen ${i + 1}`} />
-                            <div className={styles.cardBody}>
-                                <h5 className={styles.cardTitle}>Producto {i + 1}</h5>
-                                <p className={styles.cardPrice}>${(i + 1) * 6000}</p>
-                                <button className={styles.btnComprar}>Comprar</button>
+                    {galeriaImgs.map((img, i) => {
+                        const producto = {
+                            id: i + 1,
+                            nombre: `Producto ${i + 1}`,
+                            precio: (i + 1) * 6000,
+                            imagen: img
+                        };
+
+                        return (
+                            <div key={i} className={styles.card}>
+                                <div className={styles.linkCard}>
+                                    <img src={img} className={styles.cardImg} alt={`Imagen ${i + 1}`} />
+                                    <div className={styles.cardBody}>
+                                        <h5 className={styles.cardTitle}>Producto {i + 1}</h5>
+                                        <p className={styles.cardPrice}>${(i + 1) * 6000}</p>
+                                        <button 
+                                            className={styles.btnComprar}
+                                            onClick={() => handleAgregarAlCarrito(producto)}
+                                        >
+                                            Comprar
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </section>
             </main>
 
@@ -61,4 +91,5 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
 
