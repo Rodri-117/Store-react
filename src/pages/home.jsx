@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import img1 from '/images/ejemplo2.jpeg';
 import img2 from '/images/ejemplo9.jpeg';
 import img3 from '/images/ejemplo22.jpeg';
-import img21 from '/images/ejemplo21.jpeg';
-import img2gal from '/images/ejemplo2.jpeg';
-import img3gal from '/images/ejemplo3.jpeg';
-import img4 from '/images/ejemplo4.jpeg';
-import img5 from '/images/ejemplo5.jpeg';
-import img6 from '/images/ejemplo6.jpeg';
 import Footer from '../components/footer';
 import styles from './Home.module.css';
+import { getProductsByIds } from "../services/firebaseServices.js";
 
 const HomePage = () => {
     const carruselImgs = [img1, img2, img3];
-    const galeriaImgs = [img21, img2gal, img3gal, img4, img5, img6];
+
+    const [galeriaProductos, setGaleriaProductos] = useState([]);
+
+    useEffect(() => {
+        const cargarProductos = async () => {
+            const ids = [
+                "a2emxPlo777aLyJ1eKrQ",
+                "iCpfAUDZY2I364P6DsK6",
+                "ju3LVTCekrdn0LitGW0t",
+                "VekntCIZAf1RBCuk6bpR"
+            ];
+            const productos = await getProductsByIds(ids);
+            setGaleriaProductos(productos);
+        };
+
+        cargarProductos();
+    }, []);
 
     const handleAgregarAlCarrito = (producto) => {
         const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
@@ -21,7 +32,7 @@ const HomePage = () => {
         localStorage.setItem("carrito", JSON.stringify(carrito));
 
         window.dispatchEvent(new Event("carritoActualizado"));
-        
+
         Swal.fire({
             icon: 'success',
             title: '¡Producto agregado al carrito!',
@@ -56,32 +67,18 @@ const HomePage = () => {
                 <h1 className={styles.titulo}>PRODUCTOS DESTACADOS</h1>
 
                 <section className={styles.grid}>
-                    {galeriaImgs.map((img, i) => {
-                        const producto = {
-                            id: i + 1,
-                            nombre: `Producto ${i + 1}`,
-                            precio: (i + 1) * 6000,
-                            imagen: img
-                        };
-
-                        return (
-                            <div key={i} className={styles.card}>
-                                <div className={styles.linkCard}>
-                                    <img src={img} className={styles.cardImg} alt={`Imagen ${i + 1}`} />
-                                    <div className={styles.cardBody}>
-                                        <h5 className={styles.cardTitle}>Producto {i + 1}</h5>
-                                        <p className={styles.cardPrice}>${(i + 1) * 6000}</p>
-                                        <button 
-                                            className={styles.btnComprar}
-                                            onClick={() => handleAgregarAlCarrito(producto)}
-                                        >
-                                            Comprar
-                                        </button>
-                                    </div>
+                    {galeriaProductos.map((producto, i) => (
+                        <div key={producto.id} className={styles.card}>
+                        <div className={styles.linkCard}>
+                            <img src={`/images/${producto.imageId}`} className={styles.cardImg} alt={producto.title}/>
+                                <div className={styles.cardBody}>
+                                    <h5 className={styles.cardTitle}>{producto.title}</h5>
+                                    <p className={styles.cardPrice}>${producto.price}</p>
+                                    <button className={styles.btnComprar} onClick={() => handleAgregarAlCarrito(producto)}>Comprar</button>
                                 </div>
                             </div>
-                        );
-                    })}
+                        </div>
+                    ))}
                 </section>
             </main>
 
@@ -91,5 +88,6 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
 
 

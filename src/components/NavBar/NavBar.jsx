@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import styles from './Navbar.module.css';
 import { FaShoppingCart } from "react-icons/fa";
 
+const categorias = ['Todos', 'Mujer', 'Hombre'];
+
 const Navbar = () => {
     const [cartCount, setCartCount] = useState(0);
+    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todos');
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const actualizarContador = () => {
@@ -14,20 +19,36 @@ const Navbar = () => {
 
         actualizarContador();
 
-        // Se actualiza al cambiar el carrito desde esta u otra pestaña
         window.addEventListener("storage", (e) => {
             if (e.key === "carrito") {
                 actualizarContador();
             }
         });
 
-        // Evento personalizado emitido desde la misma pestaña
         window.addEventListener("carritoActualizado", actualizarContador);
 
         return () => {
             window.removeEventListener("carritoActualizado", actualizarContador);
         };
     }, []);
+
+    useEffect(() => {
+        const pathParts = location.pathname.split('/');
+        if (pathParts[1] === 'category' && categorias.includes(pathParts[2])) {
+            setCategoriaSeleccionada(pathParts[2]);
+        } else {
+            setCategoriaSeleccionada('Todos');
+        }
+    }, [location.pathname]);
+
+    const handleCategoriaClick = (categoria) => {
+        setCategoriaSeleccionada(categoria);
+        if (categoria === 'Todos') {
+            navigate('/category/todos');
+        } else {
+            navigate(`/category/${categoria}`);
+        }
+    };
 
     return (
         <nav className={`${styles.navbar} navbar navbar-expand-lg`}>
@@ -41,7 +62,18 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item"><Link className={`${styles["nav-link"]} nav-link active`} to="/">Inicio</Link></li>
-                        <li className="nav-item"><Link className={`${styles["nav-link"]} nav-link`} to="/category/todos">Productos</Link></li>
+
+                        <li className="nav-item dropdown">
+                            <span className={`${styles["nav-link"]} nav-link dropdown-toggle`} id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ cursor: 'pointer' }}>Productos</span>
+                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {categorias.map(categoria => (
+                                    <li key={categoria}>
+                                        <span className={`dropdown-item ${categoriaSeleccionada === categoria ? 'active' : ''}`} onClick={() => handleCategoriaClick(categoria)} style={{ cursor: 'pointer' }}>{categoria}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+
                         <li className="nav-item"><Link className={`${styles["nav-link"]} nav-link`} to="/pedidos">Pedidos</Link></li>
                         <li className="nav-item"><Link className={`${styles["nav-link"]} nav-link`} to="/contacto">Contacto</Link></li>
                     </ul>
@@ -62,6 +94,8 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
 
 
 

@@ -11,16 +11,39 @@ const CartPage = () => {
         setCarrito(productosEnCarrito);
     }, []);
 
-    const handleEliminarDelCarrito = (id) => {
-        const nuevosProductos = carrito.filter(producto => producto.id !== id);
-        localStorage.setItem("carrito", JSON.stringify(nuevosProductos));
-        setCarrito(nuevosProductos);
-
+    const actualizarCarrito = (nuevoCarrito) => {
+        setCarrito(nuevoCarrito);
+        localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
         window.dispatchEvent(new Event("carritoActualizado"));
     };
 
+    const handleEliminarDelCarrito = (id) => {
+        const nuevosProductos = carrito.filter(producto => producto.id !== id);
+        actualizarCarrito(nuevosProductos);
+    };
+
+    const modificarCantidad = (id, operacion) => {
+        const nuevoCarrito = carrito.map(producto => {
+            if (producto.id === id) {
+                const nuevaCantidad = operacion === "sumar"
+                    ? Math.min(producto.cantidad + 1, producto.stock)
+                    : producto.cantidad - 1;
+
+                return nuevaCantidad > 0
+                    ? { ...producto, cantidad: nuevaCantidad }
+                    : null;
+            }
+            return producto;
+        }).filter(Boolean);
+
+        actualizarCarrito(nuevoCarrito);
+    };
+
     const calcularTotal = () => {
-        return carrito.reduce((total, producto) => total + producto.precio, 0);
+        return carrito.reduce((total, producto) => {
+            const subtotal = producto.price * (producto.cantidad || 1);
+            return total + subtotal;
+        }, 0);
     };
 
     return (
@@ -35,9 +58,17 @@ const CartPage = () => {
                             <div>
                                 {carrito.map((producto) => (
                                     <div key={producto.id} className={styles["cart-item"]}>
+                                        <img src={`/images/${producto.imageId}`} alt={producto.title || "Producto"} className={styles["cart-item-img"]}/>
                                         <div className={styles["cart-item-info"]}>
-                                            <h5>{producto.nombre}</h5>
-                                            <p className={styles["precio"]}>${producto.precio.toLocaleString()}</p>
+                                            <h5>{producto.title}</h5>
+                                            <p className={styles["precio"]}>${producto?.price?.toLocaleString?.() ?? "0"} x {producto?.cantidad ?? 1}</p>
+                                            <div className={styles["quantity-controls"]}>
+                                                <button onClick={() => modificarCantidad(producto.id, "restar")} className={styles["btn-cantidad"]}>-</button>
+                                                <span>{producto.cantidad}</span>
+                                                <button onClick={() => modificarCantidad(producto.id, "sumar")} className={styles["btn-cantidad"]} disabled={producto.cantidad >= producto.stock}>
+                                                    +
+                                                </button>
+                                            </div>
                                             <button 
                                                 onClick={() => handleEliminarDelCarrito(producto.id)} 
                                                 className={styles["btn-eliminar"]}
@@ -49,11 +80,19 @@ const CartPage = () => {
                                 ))}
                                 <div className={styles["summary"]}>
                                     <p>Total:</p>
-                                    <p className={styles["total-amount"]}>${calcularTotal().toLocaleString()}</p>
+                                    <p className={styles["total-amount"]}>
+                                        ${calcularTotal().toLocaleString()}
+                                    </p>
                                 </div>
+
+                                {}
+                                <Link to="/checkout" className="btn btn-success mt-3">
+                                    Finalizar compra
+                                </Link>
                             </div>
                         )}
-                        <Link to="/" className="btn btn-primary">
+
+                        <Link to="/" className="btn btn-primary mt-3 ms-2">
                             Volver al inicio
                         </Link>
                     </div>
@@ -65,4 +104,7 @@ const CartPage = () => {
 };
 
 export default CartPage;
+
+
+
 
